@@ -1,0 +1,9 @@
+{
+  "dependencies": [
+    "cxxopts",
+    "boost",
+    "boost-stacktrace",
+    "armadillo",
+    "gtest"
+  ]
+}

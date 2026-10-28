@@ -1,0 +1,69 @@
+name: Build experiments-cpp
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        # https://github.com/marketplace/actions/checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get update
+          # Install the latest stable version
+          sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+
+      - name: Check C++ formatting
+        run: |
+          clang-format --version
+          git ls-files '*.cpp' '*.hpp' '*.cc' '*.cxx' | xargs clang-format --dry-run --Werror
+
+      - name: Install Ubuntu build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-tidy
+
+      # Install latest CMake and Ninja.
+      # https://github.com/marketplace/actions/get-cmake
+      - uses: lukka/get-cmake@latest
+      # Setup vcpkg: ensures vcpkg is downloaded and built.
+      # Since vcpkg.json is being used later on to install the packages
+      # when `run-cmake` runs, no packages are installed at this time
+      # (and vcpkg does not run).
+      - name: Setup new (or from cache) vcpkg (and does not build any package)
+        # https://github.com/marketplace/actions/run-vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 15b12b99a227d51e21c86dffd40385439eac87a0
+
+      - name: Configure CMake
+        shell: bash
+        run: cmake --preset=vcpkg
+
+      - name: Check C++ static analysis
+        shell: bash
+        run: |
+          clang-tidy --version
+          git ls-files '*.cpp' '*.hpp' '*.cc' '*.cxx' | xargs clang-tidy -p build
+
+      - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
+        # https://github.com/marketplace/actions/run-cmake
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeListsTxtPath: CMakeLists.txt
+          # This is the name of the CMakePresets.json's configuration to use to generate
+          # the project files. This configuration leverages the vcpkg.cmake toolchain file to
+          # run vcpkg and install all dependencies specified in vcpkg.json.
+          configurePreset: vcpkg
+          # This is the name of the CMakePresets.json's configuration to build the project.
+          buildPreset: vcpkg
+          testPreset: vcpkg
