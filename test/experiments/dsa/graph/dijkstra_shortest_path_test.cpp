@@ -1,16 +1,17 @@
-#include <gtest/gtest.h>
 #include "experiments/dsa/graph/dijkstra_shortest_path.hpp"
+#include <gtest/gtest.h>
 
 namespace {
-    auto createGraph() {
-        std::vector adjacencyListGraph(4, std::vector<std::pair<int, double>>());
-        dsa::graph::addEdge(&adjacencyListGraph, 0, 1, 1);
-        dsa::graph::addEdge(&adjacencyListGraph, 3, 0, 2);
-        dsa::graph::addEdge(&adjacencyListGraph, 1, 2, 2);
-        dsa::graph::addEdge(&adjacencyListGraph, 0, 2, 5);
-        return adjacencyListGraph;
-    }
+auto createGraph()
+{
+    std::vector adjacencyListGraph(4, std::vector<std::pair<int, double>>());
+    dsa::graph::addEdge(&adjacencyListGraph, 0, 1, 1);
+    dsa::graph::addEdge(&adjacencyListGraph, 3, 0, 2);
+    dsa::graph::addEdge(&adjacencyListGraph, 1, 2, 2);
+    dsa::graph::addEdge(&adjacencyListGraph, 0, 2, 5);
+    return adjacencyListGraph;
 }
+} // namespace
 
 TEST(DijkstraShortestPathTest, distanceToSingleNode)
 {
@@ -28,7 +29,7 @@ TEST(DijkstraShortestPathTest, distanceToSingleNode)
 TEST(DijkstraShortestPathTest, twoNodesDirectEdge)
 {
     // given
-    std::vector adjacencyListGraph(2, std::vector<std::pair<int, double>>()); 
+    std::vector adjacencyListGraph(2, std::vector<std::pair<int, double>>());
     dsa::graph::addEdge(&adjacencyListGraph, 0, 0, 0);
     dsa::graph::addEdge(&adjacencyListGraph, 0, 1, 5);
     const int startVertex = 0;
