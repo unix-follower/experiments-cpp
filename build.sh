@@ -2,6 +2,11 @@
 
 set -ex
 
+test() {
+    cmake --build --preset=vcpkg
+    ctest --preset=vcpkg --output-on-failure
+}
+
 build() {
     rm -rf build
 
@@ -19,6 +24,9 @@ rebuild() {
 }
 
 case "$1" in
+    test)
+        test
+        ;;
     build)
         build
         ;;

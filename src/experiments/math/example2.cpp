@@ -1,22 +1,19 @@
 #include "../../constants.hpp"
 
-#include <boost/numeric/ublas/matrix.hpp>
-#include <boost/numeric/ublas/lu.hpp>
 #include <boost/numeric/ublas/io.hpp>
+#include <boost/numeric/ublas/lu.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
 
 #include <armadillo>
+#include <cassert>
 #include <iostream>
 #include <sstream>
-#include <cassert>
 
 void solve_with_armadillo()
 {
     std::cout << "Solve with Armadillo" << std::endl;
 
-    arma::mat coefficient_matrix = {
-        {3.0, 0.0, 0.0},
-        {1.0, 5.0, -2.0},
-        {1.0 / 3.0, 2.0, 0.0}};
+    arma::mat coefficient_matrix = {{3.0, 0.0, 0.0}, {1.0, 5.0, -2.0}, {1.0 / 3.0, 2.0, 0.0}};
 
     arma::vec constant_vector = {9.0, 2.0, 3.0};
 
@@ -72,17 +69,15 @@ void solve_with_boost()
     assert(static_cast<int>(round(x3)) == 3);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     int demo_number = 0;
-    if (argc >= 2)
-    {
+    if (argc >= 2) {
         std::string number_as_str = argv[SECOND_INDEX];
         std::istringstream(number_as_str) >> demo_number;
     }
 
-    switch (demo_number)
-    {
+    switch (demo_number) {
     case 1:
         solve_with_boost();
         break;

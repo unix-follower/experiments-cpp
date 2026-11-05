@@ -11,10 +11,8 @@ run() {
   $executable
 }
 
-run_all() {
+run_math() {
   build/src/experiments/math/example1
   build/src/experiments/math/example2
   build/src/experiments/math/example3
 }
-
-run_all

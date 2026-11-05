@@ -1,14 +1,14 @@
 #include "../../constants.hpp"
 
-#include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
+#include <boost/numeric/ublas/matrix.hpp>
 
 #include <armadillo>
-#include <iostream>
-#include <sstream>
-#include <exception>
 #include <cassert>
 #include <cmath>
+#include <exception>
+#include <iostream>
+#include <sstream>
 
 void solve_with_armadillo()
 {
@@ -46,8 +46,7 @@ void solve_with_boost()
 
     permutation_matrix<std::size_t> perm_matrix(coefficient_matrix.size1());
     int lu_factorize_result = lu_factorize(coefficient_matrix, perm_matrix);
-    if (lu_factorize_result != 0)
-    {
+    if (lu_factorize_result != 0) {
         throw std::runtime_error("LU factorization failed");
     }
 
@@ -64,17 +63,15 @@ void solve_with_boost()
     assert(std::abs(x2 - 5) < epsilon);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     int demo_number = 0;
-    if (argc >= 2)
-    {
+    if (argc >= 2) {
         std::string number_as_str = argv[SECOND_INDEX];
         std::istringstream(number_as_str) >> demo_number;
     }
 
-    switch (demo_number)
-    {
+    switch (demo_number) {
     case 1:
         solve_with_boost();
         break;
