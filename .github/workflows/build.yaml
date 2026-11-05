@@ -30,7 +30,7 @@ jobs:
       - name: Install Ubuntu build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang-tidy
+          sudo apt-get install -y clang-tidy autoconf autoconf-archive automake libtool
 
       # Install latest CMake and Ninja.
       # https://github.com/marketplace/actions/get-cmake
@@ -44,6 +44,34 @@ jobs:
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgGitCommitId: 15b12b99a227d51e21c86dffd40385439eac87a0
+
+      - name: Configure OpenBLAS overlay without AVX-512
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          vcpkg_root="${VCPKG_ROOT:-$GITHUB_WORKSPACE/vcpkg}"
+          overlay="$RUNNER_TEMP/vcpkg-overlay-ports"
+          mkdir -p "$overlay"
+          cp -a "$vcpkg_root/ports/openblas" "$overlay/openblas"
+
+          python3 - "$overlay/openblas/portfile.cmake" <<'PY'
+          from pathlib import Path
+          import sys
+
+          portfile = Path(sys.argv[1])
+          text = portfile.read_text()
+          marker = "        -DNOFORTRAN=ON"
+          if marker not in text:
+              raise SystemExit(f"Could not find expected OpenBLAS portfile option in {portfile}")
+          portfile.write_text(text.replace(
+              marker,
+              marker + "\n        -DNO_AVX512=ON",
+              1,
+          ))
+          PY
+
+          echo "VCPKG_OVERLAY_PORTS=$overlay" >> "$GITHUB_ENV"
 
       - name: Configure CMake
         shell: bash
