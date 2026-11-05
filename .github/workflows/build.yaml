@@ -30,7 +30,7 @@ jobs:
       - name: Install Ubuntu build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang-tidy
+          sudo apt-get install -y clang-tidy autoconf autoconf-archive automake libtoolize
 
       # Install latest CMake and Ninja.
       # https://github.com/marketplace/actions/get-cmake
