@@ -7,5 +7,12 @@ foreach(source_file IN LISTS APP_SOURCES)
     install(TARGETS ${app_name} DESTINATION "bin/graph")
 endforeach()
 
-add_library(dsa_graph_dijkstra dijkstra_shortest_path.cpp)
-target_include_directories(dsa_graph_dijkstra PUBLIC ${PROJECT_SOURCE_DIR}/src)
+add_library(dsa_graph
+    graph.hpp
+    graph.cpp
+    depth_first_search.hpp
+    dfs.cpp
+    dijkstra_algorithm.hpp
+    dijkstra_shortest_path.cpp
+)
+target_include_directories(dsa_graph PUBLIC ${PROJECT_SOURCE_DIR}/src)

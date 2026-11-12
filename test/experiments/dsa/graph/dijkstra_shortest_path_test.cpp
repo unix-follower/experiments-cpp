@@ -1,10 +1,19 @@
-#include "experiments/dsa/graph/dijkstra_shortest_path.hpp"
+#include "experiments/dsa/graph/dijkstra_algorithm.hpp"
+#include "experiments/dsa/graph/graph.hpp"
 #include <gtest/gtest.h>
 
 namespace {
 auto createGraph()
 {
     std::vector adjacencyListGraph(4, std::vector<std::pair<int, double>>());
+    /**
+     * 0 -(1)-  1
+     * | \      |
+     * (2) \   (2)
+     * |    (5) |
+     * |      \ |
+     * 3        2
+     */
     dsa::graph::addEdge(&adjacencyListGraph, 0, 1, 1);
     dsa::graph::addEdge(&adjacencyListGraph, 3, 0, 2);
     dsa::graph::addEdge(&adjacencyListGraph, 1, 2, 2);
@@ -40,7 +49,7 @@ TEST(DijkstraShortestPathTest, twoNodesDirectEdge)
     EXPECT_EQ(5, distance);
 }
 
-TEST(DijkstraShortestPathTest, Test1)
+TEST(DijkstraShortestPathTest, takeShortestPathSimple)
 {
     // given
     std::vector adjacencyListGraph{createGraph()};
@@ -48,11 +57,11 @@ TEST(DijkstraShortestPathTest, Test1)
     const int targetVertex = 2;
     // when
     const double distance = dsa::graph::dijkstra(&adjacencyListGraph, startVertex, targetVertex);
-    // then
+    // then 0 -> 1 -> 2, 1+2=3
     EXPECT_EQ(3, distance);
 }
 
-TEST(DijkstraShortestPathTest, Test2)
+TEST(DijkstraShortestPathTest, checkShortestPathFromFarVertex)
 {
     // given
     std::vector adjacencyListGraph{createGraph()};
@@ -60,14 +69,27 @@ TEST(DijkstraShortestPathTest, Test2)
     const int targetVertex = 2;
     // when
     const double distance = dsa::graph::dijkstra(&adjacencyListGraph, startVertex, targetVertex);
-    // then
+    // then 3 -> 0 -> 1 -> 2, 2+1+2=5
     EXPECT_EQ(5, distance);
 }
 
-TEST(DijkstraShortestPathTest, Test3)
+TEST(DijkstraShortestPathTest, takeShortestPathBetweenEqWeightedEdgesOf4)
 {
     // given
     std::vector adjacencyListGraph(5, std::vector<std::pair<int, double>>());
+    /**
+     * 0  -(4)-  1 - (3)
+     *  (2)    / |  \  |
+     *     \(2) (2)(1) |
+     *    / \   |   |  |
+     *   /    \ |   /  |
+     *  /       2 -    |
+     * /     /  |      |
+     * |    (4) (4)    |
+     * |   /    |      |
+     * |  /     |      |
+     * 3 --(1)- 4 -----
+     */
     dsa::graph::addEdge(&adjacencyListGraph, 0, 1, 4);
     dsa::graph::addEdge(&adjacencyListGraph, 0, 2, 2);
     dsa::graph::addEdge(&adjacencyListGraph, 1, 2, 2);
@@ -82,6 +104,6 @@ TEST(DijkstraShortestPathTest, Test3)
     const int targetVertex = 4;
     // when
     const double distance = dsa::graph::dijkstra(&adjacencyListGraph, startVertex, targetVertex);
-    // then
+    // then 0 -> 2 -> 4, 2+4=6
     EXPECT_EQ(6, distance);
 }
