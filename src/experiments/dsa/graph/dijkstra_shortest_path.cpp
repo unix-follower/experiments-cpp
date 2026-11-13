@@ -1,20 +1,8 @@
-#include "dijkstra_shortest_path.hpp"
+#include "dijkstra_algorithm.hpp"
 #include <cmath>
-#include <iostream>
 #include <memory>
-#include <queue>
-#include <utility>
-#include <vector>
 
 namespace dsa::graph {
-void addEdge(std::vector<std::vector<std::pair<int, double>>>* adjacencyListGraph,
-             int from,
-             int to,
-             double weight)
-{
-    (*adjacencyListGraph)[from].push_back(std::make_pair(to, weight));
-}
-
 double dijkstra(std::vector<std::vector<std::pair<int, double>>>* adjacencyListGraph,
                 int startVertex,
                 int targetVertex)
@@ -26,7 +14,7 @@ double dijkstra(std::vector<std::vector<std::pair<int, double>>>* adjacencyListG
 
     MinHeap minHeap;
 
-    // set distance to the source vertex to 0
+    // Set distance to the source vertex to 0
     minHeap.push(std::make_pair(0, startVertex));
     distances[startVertex] = 0;
 
