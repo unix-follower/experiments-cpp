@@ -1,3 +1,5 @@
+#pragma once
+
 const unsigned short FIRST_INDEX = 0;
 const unsigned short SECOND_INDEX = 1;
 const unsigned short THIRD_INDEX = 2;

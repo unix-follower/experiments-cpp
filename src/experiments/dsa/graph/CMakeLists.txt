@@ -14,5 +14,6 @@ add_library(dsa_graph
     dfs.cpp
     dijkstra_algorithm.hpp
     dijkstra_shortest_path.cpp
+    breadth_first_search.hpp
 )
 target_include_directories(dsa_graph PUBLIC ${PROJECT_SOURCE_DIR}/src)

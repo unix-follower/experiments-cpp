@@ -1,9 +1,24 @@
 {
   "dependencies": [
-    "cxxopts",
-    "boost",
-    "boost-stacktrace",
-    "armadillo",
-    "gtest"
+    {
+      "name": "cxxopts",
+      "version>=": "3.3.1"
+    },
+    {
+      "name": "boost-stacktrace",
+      "version>=": "1.90.0"
+    },
+    {
+      "name": "boost-ublas",
+      "version>=": "1.90.0"
+    },
+    {
+      "name": "armadillo",
+      "version>=": "14.4.1"
+    },
+    {
+      "name": "gtest",
+      "version>=": "1.17.0"
+    } 
   ]
 }
