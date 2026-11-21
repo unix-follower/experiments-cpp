@@ -9,6 +9,7 @@ test() {
 
 build() {
     rm -rf build
+    rm -rf vcpkg_installed
 
     vcpkg install
     cmake --preset=vcpkg
