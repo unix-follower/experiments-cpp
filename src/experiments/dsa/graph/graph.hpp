@@ -7,10 +7,18 @@
 
 namespace dsa::graph {
 template <typename T> class Graph {
+    int totalVerticies;
     std::map<T, std::list<T>> adjacencyListGraph;
 
   public:
     Graph() = default;
+
+    explicit Graph(int totalNodes) : totalVerticies(totalNodes) {}
+
+    int getTotalVerticies() const
+    {
+        return totalVerticies;
+    }
 
     void addEdge(T from, T to, bool bidirectional = true)
     {
