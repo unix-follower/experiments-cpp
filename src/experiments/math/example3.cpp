@@ -12,7 +12,7 @@
 
 void solve_with_armadillo()
 {
-    std::cout << "Solve with Armadillo" << std::endl;
+    std::cout << "Solve with Armadillo\n";
 
     arma::mat coefficient_matrix = {{1.0, 1.0, 0.0}, {2.0, -1.0, 3.0}, {1.0, -2.0, -1.0}};
 
@@ -23,9 +23,9 @@ void solve_with_armadillo()
     const double x = result_vector(FIRST_COLUMN);
     const double y = result_vector(SECOND_COLUMN);
     const double z = result_vector(THIRD_COLUMN);
-    std::cout << "x = " << x << std::endl;
-    std::cout << "y = " << y << std::endl;
-    std::cout << "z = " << z << std::endl;
+    std::cout << "x = " << x << '\n';
+    std::cout << "y = " << y << '\n';
+    std::cout << "z = " << z << '\n';
 
     assert(static_cast<int>(round(x)) == 1);
     assert(static_cast<int>(round(y)) == -1);
@@ -37,8 +37,7 @@ namespace ublas = boost::numeric::ublas;
 template <typename T> bool lu_solve(ublas::matrix<T>& A, ublas::vector<T>& b, ublas::vector<T>& x)
 {
     ublas::permutation_matrix<std::size_t> pm(A.size1());
-    bool is_singular_matrix = ublas::lu_factorize(A, pm);
-    if (is_singular_matrix) {
+    if (bool is_singular_matrix = ublas::lu_factorize(A, pm)) {
         return false;
     }
     x.assign(b);
@@ -48,7 +47,7 @@ template <typename T> bool lu_solve(ublas::matrix<T>& A, ublas::vector<T>& b, ub
 
 void solve_with_boost()
 {
-    std::cout << "Solve with Boost" << std::endl;
+    std::cout << "Solve with Boost\n";
 
     ublas::matrix<double> coefficient_matrix(3, 3);
     coefficient_matrix(FIRST_ROW, FIRST_COLUMN) = 1;
@@ -68,17 +67,16 @@ void solve_with_boost()
 
     ublas::vector<double> result_vector(3);
 
-    bool can_solve = lu_solve(coefficient_matrix, constant_vector, result_vector);
-    if (!can_solve) {
+    if (bool can_solve = lu_solve(coefficient_matrix, constant_vector, result_vector); !can_solve) {
         throw std::runtime_error("The matrix is singular and cannot be solved.");
     }
 
     const double x = result_vector(FIRST_COLUMN);
     const double y = result_vector(SECOND_COLUMN);
     const double z = result_vector(THIRD_COLUMN);
-    std::cout << "x = " << x << std::endl;
-    std::cout << "y = " << y << std::endl;
-    std::cout << "z = " << z << std::endl;
+    std::cout << "x = " << x << '\n';
+    std::cout << "y = " << y << '\n';
+    std::cout << "z = " << z << '\n';
 
     assert(static_cast<int>(round(x)) == 1);
     assert(static_cast<int>(round(y)) == -1);
@@ -93,19 +91,25 @@ int main(int argc, char* argv[])
         std::istringstream(number_as_str) >> demo_number;
     }
 
-    switch (demo_number) {
-    case 1:
-        solve_with_boost();
-        break;
-    case 2:
-        solve_with_armadillo();
-        break;
+    try {
+        switch (demo_number) {
+        case 1:
+            solve_with_boost();
+            break;
+        case 2:
+            solve_with_armadillo();
+            break;
 
-    default:
-        solve_with_boost();
-        solve_with_armadillo();
-        break;
+        default:
+            solve_with_boost();
+            solve_with_armadillo();
+            break;
+        }
+
+        return 0;
     }
-
-    return 0;
+    catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
+        return -1;
+    }
 }

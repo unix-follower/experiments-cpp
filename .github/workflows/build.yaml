@@ -43,7 +43,7 @@ jobs:
         # https://github.com/marketplace/actions/run-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
-          vcpkgGitCommitId: 15b12b99a227d51e21c86dffd40385439eac87a0
+          vcpkgGitCommitId: 93ad765c7b66ab9ce97469ec23a90b15c3a14ee5
 
       - name: Configure OpenBLAS overlay without AVX-512
         shell: bash
