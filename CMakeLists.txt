@@ -4,6 +4,8 @@ project(experiments_cpp VERSION 1.0.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Avoid GCC-only module flags in compile_commands.json that clang-tidy rejects
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(src)
