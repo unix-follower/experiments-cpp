@@ -11,8 +11,11 @@ namespace detail {
  * @param path Contains the vertices for topological sorting
  */
 template <typename T>
-void dfs(int startVertex, std::vector<int>& visited,
-         const Graph<T>& adjacencyListGraph, std::stack<int>& path) {
+void dfs(int startVertex,
+         std::vector<int>& visited,
+         const Graph<T>& adjacencyListGraph,
+         std::stack<int>& path)
+{
     visited[startVertex] = 1;
     const auto& adjacencyListMap = adjacencyListGraph.getGraph();
     if (const auto it = adjacencyListMap.find(startVertex); it != adjacencyListMap.end()) {
@@ -24,10 +27,10 @@ void dfs(int startVertex, std::vector<int>& visited,
     }
     path.push(startVertex);
 }
-}
+} // namespace detail
 
-template <typename T>
-std::vector<int> topologicalSort(const Graph<T>& adjacencyListGraph) {
+template <typename T> std::vector<int> topologicalSort(const Graph<T>& adjacencyListGraph)
+{
     const int totalVerticies = adjacencyListGraph.getTotalVerticies();
     std::vector visited(totalVerticies, 0);
     std::stack<int> path;
@@ -47,4 +50,4 @@ std::vector<int> topologicalSort(const Graph<T>& adjacencyListGraph) {
 
     return topologicalOrder;
 }
-}  // namespace dsa::graph
+} // namespace dsa::graph
