@@ -71,19 +71,25 @@ int main(int argc, char* argv[])
         std::istringstream(number_as_str) >> demo_number;
     }
 
-    switch (demo_number) {
-    case 1:
-        solve_with_boost();
-        break;
-    case 2:
-        solve_with_armadillo();
-        break;
+    try {
+        switch (demo_number) {
+        case 1:
+            solve_with_boost();
+            break;
+        case 2:
+            solve_with_armadillo();
+            break;
 
-    default:
-        solve_with_boost();
-        solve_with_armadillo();
-        break;
+        default:
+            solve_with_boost();
+            solve_with_armadillo();
+            break;
+        }
+
+        return 0;
     }
-
-    return 0;
+    catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
+        return -1;
+    }
 }
