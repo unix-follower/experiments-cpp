@@ -45,7 +45,8 @@ void solve_with_boost()
     constant_vector(SECOND_COLUMN) = 6;
 
     permutation_matrix<std::size_t> perm_matrix(coefficient_matrix.size1());
-    if (auto lu_factorize_result = lu_factorize(coefficient_matrix, perm_matrix); lu_factorize_result != 0) {
+    if (auto lu_factorize_result = lu_factorize(coefficient_matrix, perm_matrix);
+        lu_factorize_result != 0) {
         throw std::runtime_error("LU factorization failed");
     }
 
