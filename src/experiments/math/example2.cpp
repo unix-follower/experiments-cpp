@@ -11,7 +11,7 @@
 
 void solve_with_armadillo()
 {
-    std::cout << "Solve with Armadillo" << std::endl;
+    std::cout << "Solve with Armadillo\n";
 
     arma::mat coefficient_matrix = {{3.0, 0.0, 0.0}, {1.0, 5.0, -2.0}, {1.0 / 3.0, 2.0, 0.0}};
 
@@ -22,9 +22,9 @@ void solve_with_armadillo()
     const double x1 = result_vector(FIRST_COLUMN);
     const double x2 = result_vector(SECOND_COLUMN);
     const double x3 = result_vector(THIRD_COLUMN);
-    std::cout << "x1 = " << x1 << std::endl;
-    std::cout << "x2 = " << x2 << std::endl;
-    std::cout << "x3 = " << x3 << std::endl;
+    std::cout << "x1 = " << x1 << '\n';
+    std::cout << "x2 = " << x2 << '\n';
+    std::cout << "x3 = " << x3 << '\n';
 
     assert(static_cast<int>(round(x1)) == 3);
     assert(static_cast<int>(round(x2)) == 1);
@@ -33,7 +33,7 @@ void solve_with_armadillo()
 
 void solve_with_boost()
 {
-    std::cout << "Solve with Boost" << std::endl;
+    std::cout << "Solve with Boost\n";
 
     namespace ublas = boost::numeric::ublas;
 
@@ -60,9 +60,9 @@ void solve_with_boost()
     const double x1 = constant_vector(FIRST_COLUMN);
     const double x2 = constant_vector(SECOND_COLUMN);
     const double x3 = constant_vector(THIRD_COLUMN);
-    std::cout << "x1 = " << x1 << std::endl;
-    std::cout << "x2 = " << x2 << std::endl;
-    std::cout << "x3 = " << x3 << std::endl;
+    std::cout << "x1 = " << x1 << '\n';
+    std::cout << "x2 = " << x2 << '\n';
+    std::cout << "x3 = " << x3 << '\n';
 
     assert(static_cast<int>(round(x1)) == 3);
     assert(static_cast<int>(round(x2)) == 1);

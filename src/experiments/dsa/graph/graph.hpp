@@ -42,11 +42,7 @@ void addEdge(std::vector<std::vector<std::pair<int, double>>>* adjacencyListGrap
 /**
  * @param adjacencyListGraph an undirected graph
  */
-void addUndirectedBidirectionalEdge(std::vector<std::vector<size_t>>* adjacencyListGraph,
-                                    const size_t from,
-                                    const size_t to);
+void addUndirectedBidirectionalEdge(std::vector<std::vector<size_t>>* adjacencyListGraph, size_t from, size_t to);
 
-void addUndirectedEdge(std::vector<std::vector<size_t>>* adjacencyListGraph,
-                       const size_t from,
-                       const size_t to);
+void addUndirectedEdge(std::vector<std::vector<size_t>>* adjacencyListGraph, size_t from, size_t to);
 } // namespace dsa::graph
